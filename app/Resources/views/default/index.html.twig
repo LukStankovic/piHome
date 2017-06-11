@@ -5,16 +5,16 @@
 
 	<div class="g-radek">
 		<div class="sl-3">
-			<div class="box temp-now" style="background: <?php echo $temp->boxColor($temp->actualTemperature()["temperature"]);?>">
+			<div class="box temp-now" style="background: {{ currentTemperatureBoxColor }}">
 			<div class="box__header">
 				<i class="fa fa-bolt" aria-hidden="true"></i> Aktuální teplota
 			</div>
 			<div class="box__data">
 				<div class="box__temp">
-					{{ currentTemperature }} °C
+					{{ currentTemperature.getTeplota() }} °C
 				</div>
 				<div class="box__date">
-					<?php echo $temp->actualTemperature()["date"]; ?>, před <?php echo $temp->timeAgo($temp->actualTemperature()["unix_timestamp"],time()); ?>
+					{{ currentTemperature.getDatum|date('j. n. Y H:i') }}, před {{ currentTemperatureAgo }}
 				</div>
 			</div>
 		</div>

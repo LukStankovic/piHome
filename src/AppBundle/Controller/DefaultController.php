@@ -15,12 +15,19 @@ class DefaultController extends Controller
     public function indexAction(Request $request) {
 
     	/* @var $temps Teplota */
-    	$temps = $this->getDoctrine()->getRepository('AppBundle:Teplota')->findAll();
+    	$teplotaBunddle = $this->getDoctrine()->getRepository('AppBundle:Teplota');
 
-    	var_dump($temps);
+    	$currentTemperatureQuery = $teplotaBunddle->createQueryBuilder('t')
+		    ->orderBy('t.id', 'DESC')
+		    ->getQuery();
+
+    	$currentTemperature = $currentTemperatureQuery->setMaxResults(1)->getOneOrNullResult();
+	    $currentTemperatureAgo = $currentTemperature->timeAgo($currentTemperature->getDatum()->getTimestamp());
+
         return $this->render('default/index.html.twig', [
-            'temps' => $temps,
-
+            'currentTemperature' => $currentTemperature,
+            'currentTemperatureAgo' => $currentTemperatureAgo,
+            'currentTemperatureBoxColor' => $currentTemperature->boxColor(),
         ]);
     }
 }
