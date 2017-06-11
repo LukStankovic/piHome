@@ -1,0 +1,94 @@
+// GRID SYSTÉM
+// ===========
+// * g-radek -> řádek, ve kterém jsou umístěné sloupce, maximální počet sloupců je 12
+// * syntaxe sloupců: sl-/sirka/ (např.: sl-6) -> polovina 100%
+
+$mezera: 20px;
+$mezera_posledni: 0px;
+
+// BREAKPOINTS
+//------------
+// xs <0,767> - pod sebou
+// sm <768,991> - vedle sebe
+// md <992,1199> - vedle sebe
+// lg <1200,inf) - vedle sebe
+
+//-----------------
+$scr-xs-max: 767px;
+//-----------------
+$scr-sm-min: 768px;
+$scr-sm-max: 991px;
+//------------------
+$scr-md-min: 992px;
+$scr-md-max: 1199px;
+//------------------
+$scr-lg-min: 1200px;
+//------------------
+
+
+.g-radek{
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: $mezera;
+  display: table;
+  width: 100%;
+}
+
+@for $i from 1 through 12 {
+  .sl-#{$i} {
+    margin-right: $mezera;
+    width: calc( ((100% / 12) * #{$i}) - 19px);
+    float: left;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+  }
+  .sl-#{$i}:last-child {
+    margin-right: $mezera_posledni;
+    width: calc( (((100% / 12) * #{$i}) - 2px) - 11px ); //KVŮLI BORDERU
+  }
+  @media screen and (max-width: $scr-xs-max){
+    .sl-#{$i}, .sl-#{$i}:last-child{
+      float: none;
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: $mezera;
+    }
+    .g-radek{
+      margin-bottom: 0;
+    }
+  }
+}
+
+// OBAL - CONTAINER
+// ----------------
+
+@media screen and (max-width: $scr-xs-max){
+  .obal{
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: $scr-sm-min) and (max-width: $scr-sm-max){
+  .obal{
+    width: 750px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: $scr-md-min) and (max-width: $scr-md-max){
+  .obal{
+    width: 970px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: $scr-lg-min){
+  .obal{
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
